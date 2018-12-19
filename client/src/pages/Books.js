@@ -1,107 +1,84 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
+import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class Books extends Component {
-  state = {
-    books = [],
-    query: ""
-  };
+    state = {
+      books: [],
+      query: ""
+    }
 
-  // componentDidMount() {
-  //   this.loadBooks();
-  // }
+    handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({
+        [name]: value
+      });
+      console.log(this.state.query)
+    };
+  
+    handleFormSubmit = event => {
+      event.preventDefault();
+      console.log(this.state.query.split(' ').join('+'))
+      API.searchBooks(this.state.query.split(' ').join('+'))
+        .then(res => {
+          this.setState({ books: res })
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+      this.setState({query: ""})
+    }
+    
+    render() {
+      const { classes } = this.props;
 
-  // loadBooks = () => {
-  //   API.getBooks()
-  //     .then(res =>
-  //       this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
+          return (
+        <Grid item>
+          <TextField
+          id="standard-search"
+          label="Search Books"
+          type="search"
+          name="query"
+          value={this.state.query}
+          className={classes.textField}
+          margin="normal"
+          onChange={this.handleInputChange}
+          />
+          <IconButton 
+            aria-label="Search"
+            className={classes.margin}
+            onClick={this.handleFormSubmit}
+            >
+          <SearchIcon fontSize="small" />
+          </IconButton>    
+        </Grid>
+          );
+        }
+      }
+Books.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    event.preventDefault();
-    API.searchBooks(this.state.query)
-      .then(res => this.setState({ books: res.data }))
-      .catch(err => console.log(err));
-    // if (this.state.title && this.state.author) {
-    //   API.saveBook({
-    //     title: this.state.title,
-    //     author: this.state.author,
-    //     synopsis: this.state.synopsis
-    //   })
-    //     .then(res => this.loadBooks())
-    //     .catch(err => console.log(err));
-    // }
-  };
-
-  render() {
-    return (
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="query"
-                placeholder="Title (required)"
-              />
-              <FormBtn
-                onClick={this.handleFormSubmit}
-              >
-                Search
-              </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron>
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-}
-
-export default Books;
+export default withStyles(styles)(Books);
