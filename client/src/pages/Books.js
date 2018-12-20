@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -35,9 +35,33 @@ class Books extends Component {
       console.log(this.state.query.split(' ').join('+'))
       API.searchBooks(this.state.query.split(' ').join('+'))
         .then(res => {
-          this.setState({ books: res.data })
+          let books = []
+          res.data.forEach(element => {
+            books.push({
+              title: element.volumeInfo.title,
+              authors: element.volumeInfo.authors ? element.volumeInfo.authors.join(', ') : "",
+              description: element.volumeInfo.description ? element.volumeInfo.description : "",
+              link: element.volumeInfo.infoLink,
+              image: element.volumeInfo.imageLinks.thumbnail,
+              year: element.volumeInfo.publishedDate ? element.volumeInfo.publishedDate.slice(0, 4) : ""
+            })
+          })
+          this.setState({ books: books })
         })
         .catch(err => console.log(err))
+    }
+
+    handleSave = index => {
+      let bookData = {
+        title: this.state.books[index].title,
+        authors: this.state.books[index].authors,
+        description: this.state.books[index].description,
+        link: this.state.books[index].link,
+        image: this.state.books[index].image,
+        year: this.state.books[index].year
+      }
+      console.log(bookData)
+      API.saveBook(bookData)
     }
     
     render() {
@@ -67,7 +91,10 @@ class Books extends Component {
             </Grid>
           </Grid>
           <Grid container justify="center">
-            <Content books={this.state.books}/>
+            <Content 
+            books={this.state.books}
+            handleSave={this.handleSave}
+            />
           </Grid>   
         </React.Fragment>
           );

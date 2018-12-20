@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import SaveIcon from '@material-ui/icons/Save';
-import { relative } from "path";
 
 const styles = theme => ({
   root: {
@@ -46,23 +45,25 @@ const Content = props => {
       <List className={classes.root}>
         {props.books.map((i, index) => (
           <ListItem key={index} alignItems="flex-start">
-            <img src={i.volumeInfo.imageLinks.thumbnail} />
+            <img alt={i.title} src={i.image} />
           <div className={classes.container}>
             <Button 
-              href={i.volumeInfo.infoLink}
+              href={i.link}
               className={classes.btnText}
               size='large'
               >
-              {i.volumeInfo.title}
+              {i.title}
             </Button>
-            {/* <a href="#">Author</a> */}
             <ListItemText
-              primary={i.volumeInfo.authors ? i.volumeInfo.authors.join(', ') + " - " + i.volumeInfo.publishedDate.slice(0, 4) : ""}
-              secondary= {i.volumeInfo.description}
+              primary={i.authors + " - " + i.year}
+              secondary= {i.description}
               />
               <div className={classes.button}>
-              <Button variant="contained" size="small">
-                <SaveIcon />
+              <Button 
+              onClick={() => props.handleSave(index)}
+              variant="contained"
+              size="small">
+                <SaveIcon/>
                 Save
               </Button>
               </div>

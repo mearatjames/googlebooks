@@ -35,7 +35,7 @@ function Nav(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar className={props.highlight} position="fixed" color="default">
+      <AppBar className={props.highlight} position="relative" color="default">
         <Toolbar>
       <Grid container>
       <Grid item xs={12} sm={6}>
