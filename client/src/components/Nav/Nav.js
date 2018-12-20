@@ -11,9 +11,9 @@ import Grid from '@material-ui/core/Grid';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginBottom: "90px",
+    marginBottom: "15px",
     [theme.breakpoints.down('sm')]: {
-      marginBottom: "140px"
+      marginBottom: "20px"
      }
   },
   rightToolbar: {

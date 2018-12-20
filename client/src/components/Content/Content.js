@@ -8,6 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import SaveIcon from '@material-ui/icons/Save';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   root: {
@@ -59,13 +61,12 @@ const Content = props => {
               secondary= {i.description}
               />
               <div className={classes.button}>
-              <Button 
-              onClick={() => props.handleSave(index)}
+              <IconButton 
+              onClick={() => props.handleSave ? props.handleSave(index) : props.handleDelete(index)}
               variant="contained"
               size="small">
-                <SaveIcon/>
-                Save
-              </Button>
+                {props.handleSave ? <SaveIcon /> : <DeleteIcon />}
+              </IconButton>
               </div>
             </div>
           </ListItem>

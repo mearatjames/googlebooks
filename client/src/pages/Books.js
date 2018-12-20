@@ -27,12 +27,10 @@ class Books extends Component {
       this.setState({
         [name]: value
       });
-      console.log(this.state.query)
     };
   
     handleFormSubmit = event => {
       event.preventDefault();
-      console.log(this.state.query.split(' ').join('+'))
       API.searchBooks(this.state.query.split(' ').join('+'))
         .then(res => {
           let books = []
@@ -60,7 +58,6 @@ class Books extends Component {
         image: this.state.books[index].image,
         year: this.state.books[index].year
       }
-      console.log(bookData)
       API.saveBook(bookData)
     }
     

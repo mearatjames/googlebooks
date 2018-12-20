@@ -3,14 +3,14 @@ import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Content from "../components/Content"
 
 const styles = theme => ({
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
+  paper: {
+    marginBottom: theme.spacing.unit * 2,
+    textAlign: 'center'
   },
 });
 
@@ -26,29 +26,25 @@ class Saved extends Component {
       }
   
    
-    // handleDelete = index => {
-    //   let data = this.state.books[index].volumeInfo
-    //   let bookData = {
-    //     title: data.title,
-    //     authors: data.authors.join(', '),
-    //     description: data.description,
-    //     link: data.infoLink,
-    //     image: data.imageLinks.thumbnail,
-    //     year: data.publishedDate.slice(0, 4)
-    //   }
-    //   console.log(bookData)
+    handleDelete = index => {
+        console.log('Deleted')
     //   API.saveBook(bookData)
-    // }
+    }
     
     render() {
       const { classes } = this.props;
 
       return (
         <React.Fragment>
+        <Paper className={classes.paper} elevation={1}>
+            <Typography variant="h5" component="h3">
+            Saved Books
+            </Typography>
+        </Paper>
           <Grid container justify="center">
             <Content 
             books={this.state.books}
-            // handleDelete={this.handleDelete}
+            handleDelete={this.handleDelete}
             />
           </Grid>   
         </React.Fragment>
