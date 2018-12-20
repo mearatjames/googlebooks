@@ -22,8 +22,8 @@ const styles = theme => ({
     return (
       <div className={classes.footer}>
           <Typography variant="h6" color="inherit">
-           <p>Create-React-App Homework</p>
-           <a className={classes.link} href="https://github.com/mearatjames/clickygame">
+           <p>MERN Homework</p>
+           <a className={classes.link} href="https://github.com/mearatjames/googlebooks">
             <p>Github Repository</p>
            </a> 
           </Typography>

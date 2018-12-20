@@ -6,21 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import Content from "../components/Content"
 
 const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
     width: 200,
   },
 });
@@ -44,36 +35,41 @@ class Books extends Component {
       console.log(this.state.query.split(' ').join('+'))
       API.searchBooks(this.state.query.split(' ').join('+'))
         .then(res => {
-          this.setState({ books: res })
-          console.log(res)
+          this.setState({ books: res.data })
         })
         .catch(err => console.log(err))
-      this.setState({query: ""})
     }
     
     render() {
       const { classes } = this.props;
 
-          return (
-        <Grid item>
-          <TextField
-          id="standard-search"
-          label="Search Books"
-          type="search"
-          name="query"
-          value={this.state.query}
-          className={classes.textField}
-          margin="normal"
-          onChange={this.handleInputChange}
-          />
-          <IconButton 
-            aria-label="Search"
-            className={classes.margin}
-            onClick={this.handleFormSubmit}
-            >
-          <SearchIcon fontSize="small" />
-          </IconButton>    
-        </Grid>
+      return (
+        <React.Fragment>
+        <Grid container justify='center'>
+          <Grid item>
+            <TextField
+            id="standard-search"
+            label="Search Books"
+            type="search"
+            name="query"
+            value={this.state.query}
+            className={classes.textField}
+            margin="normal"
+            onChange={this.handleInputChange}
+            />
+            <IconButton 
+              aria-label="Search"
+              className={classes.margin}
+              onClick={this.handleFormSubmit}
+              >
+            <SearchIcon fontSize="small" />
+            </IconButton>
+            </Grid>
+          </Grid>
+          <Grid container justify="center">
+            <Content books={this.state.books}/>
+          </Grid>   
+        </React.Fragment>
           );
         }
       }

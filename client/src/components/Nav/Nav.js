@@ -40,12 +40,12 @@ function Nav(props) {
       <Grid container>
       <Grid item xs={12} sm={6}>
         <Typography className={classes.appName} variant="h6" color="inherit">
-         <p>Clicky Game</p> 
+         <p>Books Search App</p> 
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6}>
         <Typography className={classes.rightToolbar} variant="h6" color="inherit">
-        <p>Current Score: {props.currentScore} | Top Score: {props.topScore} </p>
+        <p>Google Books API</p>
         </Typography>
       </Grid>
       </Grid>
