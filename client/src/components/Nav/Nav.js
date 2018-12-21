@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import "./Nav.css";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,6 +6,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 
 const styles = theme => ({
@@ -24,24 +26,46 @@ const styles = theme => ({
     }
   },
   appName: {
-    [theme.breakpoints.down('sm')]: {
-      textAlign: 'center'
-      }
-    }
+    alignItems: 'center',
+  }
 });
 
-function Nav(props) {
-  const { classes } = props;
+class Nav extends Component {
+  
+  state = {
+    value: 0,
+  };
 
-  return (
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
+
+
+render () {
+
+    const { classes } = this.props;
+
+    return (
     <div className={classes.root}>
-      <AppBar className={props.highlight} position="relative" color="default">
+      <AppBar position="relative" color="default">
         <Toolbar>
-      <Grid container>
-      <Grid item xs={12} sm={6}>
-        <Typography className={classes.appName} variant="h6" color="inherit">
-         <p>Books Search App</p> 
-        </Typography>
+      <Grid 
+      container
+      direction="row"
+      justify="space-between"
+      alignItems="center">
+      <Grid item xs={12} sm={4}>
+        <Tabs
+            className={classes.appName}
+            value={this.state.value}
+          >
+            <Tab label="Home" href="/" />
+            <Tab label="Saved" href="/saved" />
+        </Tabs>
       </Grid>
       <Grid item xs={12} sm={6}>
         <Typography className={classes.rightToolbar} variant="h6" color="inherit">
@@ -52,7 +76,8 @@ function Nav(props) {
         </Toolbar>
       </AppBar>
     </div>
-  );
+    )
+  }
 }
 
 Nav.propTypes = {

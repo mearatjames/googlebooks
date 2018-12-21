@@ -4,12 +4,13 @@ import Books from "./pages/Books";
 import Saved from "./pages/Saved";
 // import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className="routerContainer">
         <Nav />
         <Switch>
           <Route exact path="/" component={Books} />

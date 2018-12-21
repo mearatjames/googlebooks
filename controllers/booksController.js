@@ -17,7 +17,6 @@ module.exports = {
   },
   create: function(req, res) {
     db.Book.create(req.body, function(err, data) {
-      console.log(err, data)
       if (err) return err
       res.json(data)
     })
@@ -30,9 +29,9 @@ module.exports = {
   },
   remove: function(req, res) {
     db.Book
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .findOneAndDelete({ _id: req.params.id }, function(err, data) {
+        if (err) console.log(err)
+        res.json(data)
+      })
   }
 };

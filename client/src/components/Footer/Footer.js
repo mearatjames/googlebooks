@@ -9,11 +9,10 @@ const styles = theme => ({
       padding: "10px",
       textAlign: 'center',
       backgroundColor: 'rgb(245, 245, 245)',
-      padding: "10px",
       position: "absolute",
       bottom: 0,
       left: 0,
-      width: "100%"
+      width: "100%",
     },
     link: {
         textDecoration: "none",
