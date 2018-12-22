@@ -24,7 +24,6 @@ class Saved extends Component {
           .then(res => this.setState({ books: res.data }))
           .catch(err => console.log(err));
       }
-  
    
     handleDelete = index => {
       API.deleteBook(this.state.books[index]._id)
@@ -45,6 +44,9 @@ class Saved extends Component {
             </Typography>
         </Paper>
           <Grid container justify="center">
+          <div>
+            {this.state.books.length === 0 ? "No Book Saved..." : "" }
+          </div>
             <Content 
             books={this.state.books}
             handleDelete={this.handleDelete}

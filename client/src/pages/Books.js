@@ -7,13 +7,21 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Content from "../components/Content"
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
 
 const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
     width: 200,
   },
+  flex: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  button: {
+    marginTop: '15px'
+  }
 });
 
 class Books extends Component {
@@ -71,23 +79,28 @@ class Books extends Component {
         <React.Fragment>
         <Grid container justify='center'>
           <Grid item>
-            <TextField
-            id="standard-search"
-            label="Search Books"
-            type="search"
-            name="query"
-            value={this.state.query}
-            className={classes.textField}
-            margin="normal"
-            onChange={this.handleInputChange}
-            />
-            <IconButton 
-              aria-label="Search"
-              className={classes.margin}
-              onClick={this.handleFormSubmit}
-              >
-            <SearchIcon fontSize="small" />
-            </IconButton>
+            <form className={classes.flex}>
+                <TextField
+                id="standard-search"
+                label="Search Books"
+                type="search"
+                name="query"
+                className={classes.textField}
+                value={this.state.query}
+                className={classes.textField}
+                onChange={this.handleInputChange}
+                />
+                <div>
+                  <IconButton 
+                    type="submit"
+                    aria-label="Search"
+                    onClick={this.handleFormSubmit}
+                    className={classes.button}
+                    >
+                  <SearchIcon fontSize="small" />
+                  </IconButton>
+                </div>
+            </form>
             </Grid>
           </Grid>
           <Grid container justify="center">

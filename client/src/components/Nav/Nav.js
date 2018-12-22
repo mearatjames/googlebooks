@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { Switch, Route, Redirect, Link  } from "react-router-dom";
 
 
 const styles = theme => ({
@@ -50,7 +51,7 @@ class Nav extends Component {
 
 render () {
 
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
 
     return (
     <div className={classes.root}>
@@ -65,12 +66,17 @@ render () {
         <Tabs
             className={classes.appName}
             value={this.state.value}
+            onChange={this.handleChange}
           >
             <Tab
-             label="Home" href="/" />
+              label="Home"
+              component={Link} to="/"
+              />
+              
             <Tab 
-            label= "Saved"
-             href="/saved" />
+              label= "Saved"
+              component={Link} to="/saved"
+              />
         </Tabs>
       </Grid>
       <Grid item xs={12} sm={6}>
