@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -59,6 +59,10 @@ class Books extends Component {
         year: this.state.books[index].year
       }
       API.saveBook(bookData)
+      .then(res => {
+        console.log(res.data.title)
+        API.notification(res.data.title)
+      })
     }
     
     render() {

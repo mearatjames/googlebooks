@@ -4,7 +4,6 @@ const booksController = require("../../controllers/booksController");
 // Book routes
 router.route('/')
 .get((req, res) => {
-    console.log(req.query.q)
     axios
       .get("https://www.googleapis.com/books/v1/volumes", {params: {q: req.query.q}})
       .then(response => {

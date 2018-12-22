@@ -27,11 +27,14 @@ const styles = theme => ({
   },
   appName: {
     alignItems: 'center',
+  },
+  padding: {
+    padding: `0 ${theme.spacing.unit * 2}px`,
   }
 });
 
 class Nav extends Component {
-  
+
   state = {
     value: 0,
   };
@@ -63,8 +66,11 @@ render () {
             className={classes.appName}
             value={this.state.value}
           >
-            <Tab label="Home" href="/" />
-            <Tab label="Saved" href="/saved" />
+            <Tab
+             label="Home" href="/" />
+            <Tab 
+            label= "Saved"
+             href="/saved" />
         </Tabs>
       </Grid>
       <Grid item xs={12} sm={6}>
