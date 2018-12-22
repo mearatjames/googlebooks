@@ -60,8 +60,7 @@ class Books extends Component {
       }
       API.saveBook(bookData)
       .then(res => {
-        console.log(res.data.title)
-        API.notification(res.data.title)
+        API.notification("Added: " + res.data.title)
       })
     }
     

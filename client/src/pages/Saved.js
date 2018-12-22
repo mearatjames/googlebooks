@@ -28,7 +28,9 @@ class Saved extends Component {
    
     handleDelete = index => {
       API.deleteBook(this.state.books[index]._id)
-      .then(res => this.componentDidMount())
+      .then(res => {
+          API.notification("Removed: " + res.data.title)
+          this.componentDidMount()})
       .catch(err => console.log(err))
     }
     
